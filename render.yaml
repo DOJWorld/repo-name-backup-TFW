@@ -1,0 +1,22 @@
+# Render Blueprint: SYNTHETIC-DATA STAGING ONLY.
+# Render has no UK region (Oregon, Ohio, Virginia, Frankfurt, Singapore). Frankfurt is EU, not UK,
+# so this service must NEVER hold real contractor/worker data. Production = AWS eu-west-2.
+# Free plan sleeps after 15 min without traffic (about 30-60 s to wake) and loses its in-memory data each time. The web page handles this.
+# Not yet deployed or tested on Render: build/start commands below are unverified there.
+services:
+  - type: web
+    name: tfw-portal-api
+    runtime: node
+    region: frankfurt
+    plan: free
+    buildCommand: cd apps/portal-api && npm run build
+    startCommand: cd apps/portal-api && node src/server.js
+    healthCheckPath: /health
+    autoDeploy: false
+    envVars:
+      - { key: NODE_VERSION,             value: "20" }
+      - { key: DATA_CLASSIFICATION,      value: synthetic }
+      - { key: TRUST_PROXY,              value: "1" }
+      - { key: AUDIT_HMAC_KEY,           generateValue: true }
+      - { key: QR_SIGNING_KEY,           generateValue: true }
+      - { key: SIMULATED_USER_PASSWORD,  generateValue: true }   # read it from the Render dashboard to log in to the synthetic staging API

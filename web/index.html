@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-Cy0Y8mtid/OJkxZUeNbWQI2OzdcU8YN6kqWQwwdizDg='; style-src 'sha256-7XWY8pnKBpuPSdbCjsOBup/ZTMILxzbTukw/JZoyNAM='; img-src data:; connect-src https://tfw-portal-api-b1ks.onrender.com; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="warm-max" content="45">
+<meta name="api-base" content="https://tfw-portal-api-b1ks.onrender.com">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TfW Contractors Portal</title>
+<style>
+:root{--bg:#f4f5f6;--surf:#fff;--ink:#16202b;--mut:#55606c;--line:#cfd5db;--ok:#17653a;--okbg:#e3f3ea;--bad:#a4122a;--badbg:#fbe7ea;--blk:#6b7480;--blkbg:#eceef0;--acc:#b3122b;--sim:#7a5200;--simbg:#fff4d6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12171d;--surf:#1a2129;--ink:#e8ecf0;--mut:#a3adb8;--line:#37424e;--ok:#6fd49a;--okbg:#163625;--bad:#ff8b9c;--badbg:#3a1820;--blk:#9aa4af;--blkbg:#232b34;--acc:#ff6b80;--sim:#ffd27a;--simbg:#3a2e10;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12171d;--surf:#1a2129;--ink:#e8ecf0;--mut:#a3adb8;--line:#37424e;--ok:#6fd49a;--okbg:#163625;--bad:#ff8b9c;--badbg:#3a1820;--blk:#9aa4af;--blkbg:#232b34;--acc:#ff6b80;--sim:#ffd27a;--simbg:#3a2e10;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='none' stroke='%2316202b' stroke-opacity='.07'%3E%3Cpath d='M0 70H160M0 82H160' stroke-width='2'/%3E%3Cpath d='M10 64v24M42 64v24M74 64v24M106 64v24M138 64v24' stroke-width='5'/%3E%3Cpath d='M0 150C40 120 90 150 160 118' stroke-width='1'/%3E%3Cpath d='M0 20C50 -6 100 30 160 6' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E");background-attachment:fixed;color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+main,header,footer{max-width:62rem;margin:0 auto;padding:1rem}
+header{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;border-bottom:3px solid var(--acc)}
+h1{font-size:1.35rem;margin:0;line-height:1.25}
+h2{font-size:1.1rem;margin:0 0 .75rem}
+section{background:var(--surf);border:1px solid var(--line);border-radius:6px;padding:1.1rem;margin:1rem 0}
+.sim{background:var(--simbg);color:var(--sim);border:1px solid var(--sim);border-radius:6px;padding:.75rem 1rem;margin:1rem 0;font-size:.95rem}
+.sim p{margin:.2rem 0}
+button,select{font:inherit;color:var(--ink);background:var(--surf);border:1px solid var(--mut);border-radius:4px;padding:.55rem .9rem;min-height:2.75rem;cursor:pointer}
+button.p{background:var(--ink);color:var(--surf);border-color:var(--ink)}
+button[aria-pressed="true"]{background:var(--ink);color:var(--surf)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.9rem}
+label{display:flex;flex-direction:column;gap:.25rem;font-size:.95rem}
+label.c{flex-direction:row;align-items:center;gap:.6rem;min-height:2.75rem}
+input[type=checkbox]{width:1.3rem;height:1.3rem}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.85rem}
+th,td{text-align:left;padding:.4rem .5rem;border-bottom:1px solid var(--line);vertical-align:top}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;word-break:break-all}
+.mut{color:var(--mut);font-size:.9rem}
+@media (prefers-color-scheme:dark){body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='none' stroke='%23e8ecf0' stroke-opacity='.07'%3E%3Cpath d='M0 70H160M0 82H160' stroke-width='2'/%3E%3Cpath d='M10 64v24M42 64v24M74 64v24M106 64v24M138 64v24' stroke-width='5'/%3E%3Cpath d='M0 150C40 120 90 150 160 118' stroke-width='1'/%3E%3Cpath d='M0 20C50 -6 100 30 160 6' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E")}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+header,footer{max-width:62rem}
+header h1{font-size:1.2rem}
+.card{background:var(--surf);border:1px solid var(--line);border-radius:8px;padding:1.1rem;margin:1rem 0}
+.card h3{margin:1rem 0 .4rem;font-size:1rem}
+.card label{margin:0 0 .8rem}.card .row{margin-top:.4rem}
+.tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 0}
+.tab.on{background:var(--ink);color:var(--surf);border-color:var(--ink)}
+.msg{border:2px solid var(--line);border-radius:6px;padding:.75rem 1rem;margin:1rem 0}
+.msg.ok{border-color:var(--ok);background:var(--okbg)}.msg.bad{border-color:var(--bad);background:var(--badbg)}
+.msg ul{margin:.4rem 0;padding-left:1.2rem}
+.pill{display:inline-block;padding:.1rem .6rem;border-radius:99px;font-size:.85rem;font-weight:600;border:1px solid var(--line)}
+.pill.ok{color:var(--ok);background:var(--okbg);border-color:var(--ok)}.pill.bad{color:var(--bad);background:var(--badbg);border-color:var(--bad)}.pill.wait{color:var(--sim);background:var(--simbg);border-color:var(--sim)}
+.okt{color:var(--ok);font-weight:600}.badt{color:var(--bad);font-weight:600}ul.bad{color:var(--bad)}.hi{font-weight:600}
+input[type=date],input[type=password]{font:inherit;color:var(--ink);background:var(--surf);border:1px solid var(--mut);border-radius:4px;padding:.55rem .7rem;min-height:2.75rem;max-width:100%}
+.boot{max-width:40rem;margin:3rem auto;padding:1rem;line-height:1.6}
+.poster{text-align:center}.qr{width:min(18rem,80%);height:auto}
+@media print{.np{display:none!important}body{background:#fff!important;color:#000}.card.poster{border:0;color:#000}.qr{width:16cm}}
+</style>
+</head>
+<body>
+<div id="app"><p class="boot">Loading the portal… If this message stays for more than a minute, reload the page (the test server may be waking up). If it still stays, press F12, open Console, and send the red text to the test team.<br>Wrthi’n llwytho’r porth… Os yw’r neges hon yn aros am fwy na munud, ail-lwythwch y dudalen (gall y gweinydd prawf fod yn deffro). Os yw’n aros o hyd, pwyswch F12, agorwch Console, ac anfonwch y testun coch at y tîm prawf.</p></div>
+<noscript>This portal needs JavaScript. / Mae angen JavaScript ar y porth hwn.</noscript>
+<script>
+"use strict";
+/*QR*/
+function qr(text){
+  const data=Array.from(new TextEncoder().encode(text));
+  const TB=[0,[19,7,1],[34,10,1],[55,15,1],[80,20,1],[108,26,1],[136,18,2]];
+  let ver=1;while(ver<=6&&data.length>TB[ver][0]-2)ver++;
+  if(ver>6)throw new Error('QR_TOO_LONG');
+  const [dcw,ecl,nb]=TB[ver],size=ver*4+17,bits=[];
+  const put=(v,n)=>{for(let i=n-1;i>=0;i--)bits.push((v>>>i)&1)};
+  put(4,4);put(data.length,8);data.forEach(b=>put(b,8));
+  put(0,Math.min(4,dcw*8-bits.length));while(bits.length%8)bits.push(0);
+  for(let p=0xEC;bits.length<dcw*8;p^=0xEC^0x11)put(p,8);
+  const cw=[];for(let i=0;i<bits.length;i+=8)cw.push(parseInt(bits.slice(i,i+8).join(''),2));
+  const mul=(x,y)=>{let z=0;for(let i=7;i>=0;i--){z=(z<<1)^((z>>>7)*0x11D);z^=((y>>>i)&1)*x}return z};
+  const dv=new Array(ecl-1).fill(0);dv.push(1);let root=1;
+  for(let i=0;i<ecl;i++){for(let j=0;j<ecl;j++){dv[j]=mul(dv[j],root);if(j+1<ecl)dv[j]^=dv[j+1]}root=mul(root,2)}
+  const rem=(blk)=>{const r=new Array(ecl).fill(0);for(const b of blk){const f=b^r.shift();r.push(0);dv.forEach((c,i)=>{r[i]^=mul(c,f)})}return r};
+  const bl=dcw/nb,blocks=[],ecs=[];
+  for(let k=0;k<nb;k++){const b=cw.slice(k*bl,(k+1)*bl);blocks.push(b);ecs.push(rem(b))}
+  const all=[];for(let i=0;i<bl;i++)blocks.forEach(b=>all.push(b[i]));for(let i=0;i<ecl;i++)ecs.forEach(e=>all.push(e[i]));
+  const M=Array.from({length:size},()=>new Array(size).fill(false)),F=Array.from({length:size},()=>new Array(size).fill(false));
+  const set=(x,y,v)=>{M[y][x]=v;F[y][x]=true};
+  for(let i=0;i<size;i++){set(6,i,i%2===0);set(i,6,i%2===0)}
+  const finder=(x,y)=>{for(let dy=-4;dy<=4;dy++)for(let dx=-4;dx<=4;dx++){const d=Math.max(Math.abs(dx),Math.abs(dy)),xx=x+dx,yy=y+dy;if(xx>=0&&xx<size&&yy>=0&&yy<size)set(xx,yy,d!==2&&d!==4)}};
+  finder(3,3);finder(size-4,3);finder(3,size-4);
+  if(ver>1){const c=size-7;for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++)set(c+dx,c+dy,Math.max(Math.abs(dx),Math.abs(dy))!==1)}
+  const fmt=(m)=>{const d=(1<<3)|m;let r=d;for(let i=0;i<10;i++)r=(r<<1)^((r>>>9)*0x537);const b=((d<<10)|r)^0x5412,g=(i)=>((b>>>i)&1)!==0;
+    for(let i=0;i<=5;i++)set(8,i,g(i));set(8,7,g(6));set(8,8,g(7));set(7,8,g(8));for(let i=9;i<15;i++)set(14-i,8,g(i));
+    for(let i=0;i<8;i++)set(size-1-i,8,g(i));for(let i=8;i<15;i++)set(8,size-15+i,g(i));set(8,size-8,true)};
+  fmt(0);
+  let bi=0;const nbits=all.length*8;
+  for(let right=size-1;right>=1;right-=2){if(right===6)right=5;
+    for(let v=0;v<size;v++)for(let j=0;j<2;j++){const x=right-j,up=((right+1)&2)===0,y=up?size-1-v:v;
+      if(!F[y][x]&&bi<nbits){M[y][x]=((all[bi>>>3]>>>(7-(bi&7)))&1)!==0;bi++}}}
+  const mask=(m)=>{for(let y=0;y<size;y++)for(let x=0;x<size;x++){if(F[y][x])continue;
+    const c=[(x+y)%2===0,y%2===0,x%3===0,(x+y)%3===0,(Math.floor(x/3)+Math.floor(y/2))%2===0,x*y%2+x*y%3===0,(x*y%2+x*y%3)%2===0,((x+y)%2+x*y%3)%2===0][m];if(c)M[y][x]=!M[y][x]}};
+  const pen=()=>{let p=0;for(let a=0;a<2;a++)for(let i=0;i<size;i++){let run=1;for(let j=1;j<size;j++){const c=a?M[j][i]:M[i][j],q=a?M[j-1][i]:M[i][j-1];if(c===q)run++;else{if(run>=5)p+=run-2;run=1}}if(run>=5)p+=run-2}
+    for(let y=0;y<size-1;y++)for(let x=0;x<size-1;x++){const v=M[y][x];if(v===M[y][x+1]&&v===M[y+1][x]&&v===M[y+1][x+1])p+=3}return p};
+  let best=0,bp=1e9;
+  for(let m=0;m<8;m++){mask(m);fmt(m);const p=pen();if(p<bp){bp=p;best=m}mask(m)}
+  mask(best);fmt(best);
+  return {size,get:(x,y)=>M[y][x]};
+}
+/*ENDQR*/
+
+const NS="http://www.w3.org/2000/svg";
+const P={
+title:["TfW Contractors Portal","Porth Contractwyr TrC"],built:["Built by the FST","Adeiladwyd gan yr FST"],
+demo:["Test version with invented data. Not connected to real TfW systems.","Fersiwn prawf â data ffug. Heb ei gysylltu â systemau TrC go iawn."],
+draft:["Welsh text is a draft awaiting review.","Drafft sy’n aros am adolygiad yw’r testun Cymraeg."],
+signin:["Sign in","Mewngofnodi"],who:["Test account","Cyfrif prawf"],pass:["Password","Cyfrinair"],
+passHint:["The test team gives you the password.","Mae’r tîm prawf yn rhoi’r cyfrinair i chi."],signout:["Sign out","Allgofnodi"],
+r_worker:["Worker","Gweithiwr"],r_contractor_admin:["Contractor administrator","Gweinyddwr contractwr"],r_permit_approver:["Permit approver","Cymeradwywr trwydded"],
+r_safety_officer:["Safety and compliance officer","Swyddog diogelwch a chydymffurfio"],r_site_manager:["Site manager","Rheolwr safle"],r_tfw_admin:["TfW administrator","Gweinyddwr TrC"],
+r_auditor:["Auditor","Archwiliwr"],r_support:["Technical support","Cymorth technegol"],
+n_checkin:["Check in / out","Mewngofnodi / Allgofnodi"],n_company:["My company","Fy nghwmni"],n_permits:["Permits","Trwyddedau"],n_safety:["Safety checks","Gwiriadau diogelwch"],
+n_rollcall:["Roll call and poster","Galw’r gofrestr a phoster"],n_audit:["Audit log","Log archwilio"],
+n_none:["This role has no screens in the test: support staff cannot see data.","Nid oes sgriniau i’r rôl hon yn y prawf: ni all staff cymorth weld data."],
+site:["Site","Safle"],loading:["Loading…","Wrthi’n llwytho…"],ok:["Done.","Wedi’i wneud."],nostate:["Nothing was changed.","Ni newidiwyd dim."],ref:["Reference","Cyfeirnod"],
+none:["None","Dim"],status:["Status","Statws"],save:["Save","Cadw"],expiry:["Expiry date","Dyddiad dod i ben"],
+ci:["Check in","Mewngofnodi i’r safle"],co:["Check out","Allgofnodi o’r safle"],scanned:["You opened the poster for","Rydych wedi agor y poster ar gyfer"],
+here:["You are signed in at","Rydych wedi mewngofnodi yn"],since:["since","ers"],away:["You are not signed in anywhere.","Nid ydych wedi mewngofnodi yn unman."],
+inok:["You are signed in. Stay safe.","Rydych wedi mewngofnodi. Cadwch yn ddiogel."],outok:["You are signed out.","Rydych wedi allgofnodi."],
+coOk:["All company checks are valid.","Mae holl wiriadau’r cwmni’n ddilys."],ins:["Insurance expires","Daw’r yswiriant i ben"],risqs:["RISQS status","Statws RISQS"],
+rams:["RAMS","RAMS"],subRams:["Submit RAMS for approval","Cyflwyno RAMS i’w cymeradwyo"],
+reqP:["Request a permit","Gofyn am drwydded"],lead:["Lead worker","Prif weithiwr"],auth:["Authorise","Awdurdodi"],rev:["Revoke","Dirymu"],appr:["Approve","Cymeradwyo"],expires:["Expires","Daw i ben"],
+p_requested:["Requested","Wedi’i ofyn"],p_authorised:["Authorised","Wedi’i awdurdodi"],p_revoked:["Revoked","Wedi’i ddirymu"],m_submitted:["Submitted","Wedi’i gyflwyno"],m_approved:["Approved","Wedi’i gymeradwyo"],
+v_valid:["Valid","Dilys"],v_invalid:["Invalid","Annilys"],v_suspended:["Suspended","Wedi’i atal"],
+sCo:["Company credentials","Manylion y cwmni"],sWk:["Worker credentials","Manylion gweithwyr"],sen:["Sentinel card expiry","Dyddiad dod i ben cerdyn Sentinel"],cscs:["CSCS card expiry","Dyddiad dod i ben cerdyn CSCS"],
+ind:["Record site induction","Cofnodi sefydlu ar y safle"],pend:["RAMS awaiting approval","RAMS yn aros am gymeradwyaeth"],con:["Contractor","Contractwr"],wk:["Worker","Gweithiwr"],
+present:["People on site now","Pobl ar y safle nawr"],poster:["Printable QR poster","Poster QR argraffadwy"],print:["Print poster","Argraffu poster"],
+how:["Scan with your phone camera, sign in, then tap Check in.","Sganiwch â chamera eich ffôn, mewngofnodwch, yna tapiwch Mewngofnodi i’r safle."],
+verify:["Verify audit chain","Gwirio’r gadwyn archwilio"],cOk:["Audit chain is intact.","Mae’r gadwyn archwilio’n gyfan."],cBad:["Tampering detected at entry","Canfuwyd ymyrraeth yng nghofnod"],
+reload:["Refresh","Adnewyddu"],time:["Time (UTC)","Amser (UTC)"],action:["Action","Gweithred"],outcome:["Outcome","Canlyniad"],reason:["Reason","Rheswm"],
+allowed:["Allowed","Caniatawyd"],denied:["Denied","Gwrthodwyd"],netErr:["Cannot reach the server. Check your connection. Nothing was changed.","Methu cyrraedd y gweinydd. Gwiriwch eich cysylltiad. Ni newidiwyd dim."],
+sim:["Simulated sign-in","Mewngofnodi ffug"],
+srvReady:["Test server ready.","Gweinydd prawf yn barod."],
+srvWake:["Waking the test server… the first time can take up to a minute. Please wait.","Yn deffro’r gweinydd prawf… gall y tro cyntaf gymryd hyd at funud. Arhoswch."],
+srvDown:["The test server is not answering. Check your connection and the server address, then press Sign in to try again.","Nid yw’r gweinydd prawf yn ateb. Gwiriwch eich cysylltiad a chyfeiriad y gweinydd, yna pwyswch Mewngofnodi i roi cynnig arall arni."],
+srvBlock:["The test server is awake but is not allowing this web address. Tell the test team to check EXTRA_ALLOWED_ORIGINS in Render.","Mae’r gweinydd prawf yn effro ond nid yw’n caniatáu’r cyfeiriad gwe hwn. Dywedwch wrth y tîm prawf am wirio EXTRA_ALLOWED_ORIGINS yn Render."]
+};
+const S={lang:(typeof navigator!=="undefined"&&String(navigator.language||"").toLowerCase().startsWith("cy"))?"cy":"en",token:null,role:null,user:null,view:null,d:{},msg:null,sel:{},site:null,busy:false,M:null,srv:"waking"};
+const t=(k)=>P[k]?P[k][S.lang==="cy"?1:0]:"["+k+"]";
+const $=(id)=>document.getElementById(id);
+const h=(tag,a,...kids)=>{const e=document.createElement(tag);let val;
+  for(const [k,v] of Object.entries(a||{})){if(v===false||v==null)continue;
+    if(k==="on"){for(const [ev,fn] of Object.entries(v))e.addEventListener(ev,fn)}else if(k==="value")val=v;else if(k==="class")e.className=v;else e.setAttribute(k,v===true?"":v)}
+  for(const c of kids.flat(2))if(c!=null&&c!==false)e.append(typeof c==="object"?c:String(c));
+  if(val!==undefined)e.value=val;return e};
+const API=document.querySelector('meta[name="api-base"]').content;
+async function api(m,p,b,ms){const ac=new AbortController(),tm=setTimeout(()=>ac.abort(),ms||25000);try{
+  const r=await fetch(API+p+(p.includes("?")?"&":"?")+"lang="+S.lang,{signal:ac.signal,method:m,headers:Object.assign(b?{"content-type":"application/json"}:{},S.token?{authorization:"Bearer "+S.token}:{}),body:b?JSON.stringify(b):undefined});
+  let j=null;try{j=await r.json()}catch{}
+  if(r.status===401&&S.token&&p!=="/auth/login"){S.token=null;S.user=null}
+  return{ok:r.ok,status:r.status,json:j||{}}}catch{return{ok:false,status:0,json:{error:{code:"NET"}}}}finally{clearTimeout(tm)}}
+const G=async(p)=>{const r=await api("GET",p);if(!r.ok){S.msg={ok:false,e:r.json.error||{code:"NET"}};return null}return r.json.data};
+const mt=(c,fb)=>(S.M&&S.M[S.lang]&&S.M[S.lang][c])||(c==="NET"?t("netErr"):c==="BLOCKED"?t("srvBlock"):fb||c);
+const today=(d)=>new Date(Date.now()+d*864e5).toISOString().slice(0,10);
+const nameOf=(list,key,v,f)=>{const x=(list||[]).find((y)=>y[key]===v);return x?x[f||"name"]:v};
+async function act(m,p,b,okKey){const r=await api(m,p,b);S.msg=r.ok?{ok:true,key:okKey||"ok"}:{ok:false,e:r.json.error||{code:"NET"}};await refresh()}
+async function checkIn(site){const c=await api("POST","/checkins/challenge",{siteCode:site});
+  if(!c.ok){S.msg={ok:false,e:c.json.error||{code:"NET"}};return refresh()}
+  const r=await api("POST","/checkins",{challenge:c.json.data.challenge});
+  S.msg=r.ok?{ok:true,key:"inok"}:{ok:false,e:r.json.error||{code:"NET"}};await refresh()}
+const sleep=(ms)=>new Promise((r)=>setTimeout(r,ms));
+const WARM=Number((document.querySelector('meta[name="warm-max"]')||{}).content)||45;
+let warming=null;
+const srvText=()=>S.srv==="ready"?t("srvReady"):S.srv==="down"?t("srvDown"):S.srv==="blocked"?t("srvBlock"):t("srvWake");
+async function reachable(){const ac=new AbortController(),tm=setTimeout(()=>ac.abort(),8000);try{await fetch(API+"/health",{mode:"no-cors",signal:ac.signal});return true}catch{return false}finally{clearTimeout(tm)}}
+function setStatus(){const e=$("srv");if(e){e.textContent=srvText();e.className=S.srv==="ready"?"okt":(S.srv==="down"||S.srv==="blocked")?"badt":"mut"}}
+function warm(){if(S.srv==="ready")return Promise.resolve(true);if(warming)return warming;
+  S.srv="waking";setStatus();
+  warming=(async()=>{for(let i=0;i<WARM;i++){const r=await api("GET","/health",null,8000);
+    if(r.ok){S.srv="ready";warming=null;setStatus();const l=await api("GET","/i18n");if(l.ok)S.M=l.json.data;return true}
+    await sleep(2500)}
+    S.srv=(await reachable())?"blocked":"down";warming=null;setStatus();return false})();return warming}
+async function login(){const u=$("f-user").value,pw=$("f-pass").value;
+  if(S.srv!=="ready"){S.msg=null;const ok=await warm();if(!ok){S.msg={ok:false,e:{code:S.srv==="blocked"?"BLOCKED":"NET"}};return render()}}
+  const r=await api("POST","/auth/login",{username:u,password:pw});
+  if(!r.ok){S.msg={ok:false,e:r.json.error||{code:"NET"}};return render()}
+  S.token=r.json.data.token;S.role=r.json.data.role;S.msg=null;
+  const me=await api("GET","/me");S.user=me.json.data;await go(ROLEVIEWS[S.role][0]||"none")}
+function logout(){if(S.token)api("POST","/auth/logout",{});S.token=null;S.user=null;S.d={};S.sel={};S.msg=null;render()}
+const ROLEVIEWS={worker:["checkin"],contractor_admin:["company","permits"],permit_approver:["permits"],safety_officer:["safety","permits","rollcall","audit"],site_manager:["rollcall"],tfw_admin:["safety","permits","rollcall","audit"],auditor:["audit"],support:[]};
+const ACCOUNTS=[["alpha.w1","worker"],["alpha.w2","worker"],["beta.w1","worker"],["alpha.admin","contractor_admin"],["beta.admin","contractor_admin"],["approver","permit_approver"],["safety","safety_officer"],["sitemgr","site_manager"],["tfw.admin","tfw_admin"],["auditor","auditor"],["support","support"]];
+const first=(l)=>l&&l[0]?l[0]:null;
+const LOAD={
+  async none(){},
+  async checkin(){S.d.sites=await G("/sites");S.d.mine=(await G("/checkins/me"))||{present:null};S.sel.site=S.sel.site||S.site||(first(S.d.sites)||{}).code},
+  async company(){S.d.comp=await G("/contractors/"+S.user.contractorId+"/compliance");S.d.sites=await G("/sites")},
+  async permits(){S.d.permits=await G("/permits");S.d.sites=await G("/sites");
+    if(S.role==="contractor_admin"){S.d.workers=await G("/contractors/"+S.user.contractorId+"/workers");S.d.rams=await G("/rams")}},
+  async safety(){S.d.cons=await G("/contractors");S.d.sites=await G("/sites");S.d.rams=await G("/rams");S.sel.con=S.sel.con||(first(S.d.cons)||{}).id;
+    if(S.sel.con){S.d.comp=await G("/contractors/"+S.sel.con+"/compliance");S.d.workers=await G("/contractors/"+S.sel.con+"/workers");
+      const w=S.d.workers||[];if(!w.find((x)=>x.id===S.sel.wk))S.sel.wk=(first(w)||{}).id}},
+  async rollcall(){S.d.sites=await G("/sites");S.sel.site=S.sel.site||(first(S.d.sites)||{}).code;if(S.sel.site)S.d.roll=await G("/rollcall/"+S.sel.site)},
+  async audit(){const r=await G("/audit?limit=100");S.d.audit=r?r.entries:[];S.d.chain=null}
+};
+async function go(v){S.view=v;S.busy=true;render();await LOAD[v]();S.busy=false;render()}
+const refresh=()=>S.token?go(S.view):render();
+
+const btn=(label,fn,cls,dis)=>h("button",{type:"button",class:cls||null,disabled:dis?true:null,on:{click:fn}},label);
+const fld=(label,input)=>h("label",{},h("span",{},label),input);
+const sel=(id,opts,val,fn)=>h("select",{id,value:val,on:fn?{change:fn}:null},opts.map(([v,l])=>h("option",{value:v},l)));
+const date=(id,val)=>h("input",{id,type:"date",value:val});
+const pill=(txt,kind)=>h("span",{class:"pill "+kind},txt);
+const card=(title,...k)=>h("section",{class:"card np"},h("h2",{},title),...k);
+const siteOpts=()=>(S.d.sites||[]).map((s)=>[s.code,s.name]);
+const stKind={authorised:"ok",approved:"ok",valid:"ok",requested:"wait",submitted:"wait",revoked:"bad",invalid:"bad",suspended:"bad"};
+const st=(prefix,v)=>pill(t(prefix+v)||v,stKind[v]||"wait");
+
+function msgBox(){const m=S.msg;if(!m)return null;
+  if(m.ok)return h("div",{class:"msg ok np",role:"status"},t(m.key));
+  const e=m.e||{code:"NET"};
+  return h("div",{class:"msg bad np",role:"alert"},h("strong",{},mt(e.code,e.message)),
+    (e.reasons||[]).length?h("ul",{},e.reasons.map((r)=>h("li",{},mt(r.code,r.message)))):null,
+    ["QR_INVALID","QR_EXPIRED","QR_REPLAY","DUPLICATE_CHECKIN","NET"].includes(e.code)?h("div",{},t("nostate")):null,
+    e.correlationId?h("div",{class:"mut"},t("ref")+": "+e.correlationId):null)}
+
+function vCheckin(){const sites=S.d.sites||[],mine=S.d.mine||{};
+  return card(t("n_checkin"),
+    S.site?h("p",{class:"hi"},t("scanned")+" "+nameOf(sites,"code",S.site)+"."):null,
+    mine.present?h("p",{},t("here")+" "+nameOf(sites,"code",mine.present.siteCode)+" "+t("since")+" "+mine.present.inAt.slice(11,16)+" UTC."):h("p",{class:"mut"},t("away")),
+    fld(t("site"),sel("f-site",siteOpts(),S.sel.site,(e)=>{S.sel.site=e.target.value})),
+    h("div",{class:"row"},btn(t("ci"),()=>checkIn(S.sel.site),"p",!!mine.present),btn(t("co"),()=>act("POST","/checkouts",{siteCode:mine.present.siteCode},"outok"),"",!mine.present)))}
+
+function vCompany(){const c=S.d.comp;if(!c)return null;
+  return [card(S.user.contractorId&&c.name,
+    c.companyReasons.length?h("ul",{class:"bad"},c.companyReasons.map((x)=>h("li",{},mt(x)))):h("p",{class:"okt"},t("coOk")),
+    h("p",{},t("ins")+": "+c.insuranceExpiry),h("p",{},t("risqs")+": ",st("v_",c.risqsStatus)," "+c.risqsExpiry)),
+    card(t("rams"),h("ul",{},c.rams.map((r)=>h("li",{},nameOf(S.d.sites,"code",r.siteCode)+" ",st("m_",r.status)))),
+      fld(t("site"),sel("f-rsite",siteOpts(),S.sel.rs||(first(S.d.sites)||{}).code,(e)=>{S.sel.rs=e.target.value})),
+      fld(t("expiry"),date("f-rexp",today(90))),
+      btn(t("subRams"),()=>act("POST","/rams",{contractorId:S.user.contractorId,siteCode:$("f-rsite").value,expiry:$("f-rexp").value}),"p"))]}
+
+function vPermits(){const ps=S.d.permits||[],sites=S.d.sites,role=S.role;
+  const rows=ps.map((p)=>h("tr",{},h("td",{},p.id),h("td",{},nameOf(sites,"code",p.siteCode)),h("td",{},st("p_",p.status)),h("td",{},p.expiry?p.expiry.slice(0,16).replace("T"," "):"–"),
+    h("td",{class:"row"},
+      role==="permit_approver"&&p.status==="requested"?btn(t("auth"),()=>act("POST","/permits/"+p.id+"/authorise",{}),"p"):null,
+      (role==="permit_approver"||role==="safety_officer")&&["requested","authorised"].includes(p.status)?btn(t("rev"),()=>act("POST","/permits/"+p.id+"/revoke",{})):null)));
+  const list=card(t("n_permits"),ps.length?h("div",{class:"tw"},h("table",{},h("thead",{},h("tr",{},["ID",t("site"),t("status"),t("expires"),""].map((x)=>h("th",{scope:"col"},x)))),h("tbody",{},rows))):h("p",{class:"mut"},t("none")));
+  if(role!=="contractor_admin")return list;
+  const ws=S.d.workers||[],rs=(S.d.rams||[]);
+  return [list,card(t("reqP"),
+    fld(t("site"),sel("f-psite",siteOpts(),S.sel.ps||(first(S.d.sites)||{}).code,(e)=>{S.sel.ps=e.target.value})),
+    fld(t("lead"),sel("f-plead",ws.map((w)=>[w.id,w.name]),(first(ws)||{}).id)),
+    fld(t("rams"),sel("f-prams",rs.map((r)=>[r.id,nameOf(S.d.sites,"code",r.siteCode)+" – "+t("m_"+r.status)]),(first(rs)||{}).id)),
+    btn(t("reqP"),()=>act("POST","/permits",{contractorId:S.user.contractorId,siteCode:$("f-psite").value,leadWorkerId:$("f-plead").value,ramsId:$("f-prams").value}),"p"))]}
+
+function vSafety(){const cons=S.d.cons||[],c=S.d.comp,ws=S.d.workers||[],wk=ws.find((x)=>x.id===S.sel.wk)||ws[0];
+  const pend=(S.d.rams||[]).filter((r)=>r.status==="submitted");
+  const out=[card(t("pend"),pend.length?h("ul",{},pend.map((r)=>h("li",{class:"row"},nameOf(cons,"id",r.contractorId)+" – "+nameOf(S.d.sites,"code",r.siteCode)+" ",
+    S.role==="safety_officer"?btn(t("appr"),()=>act("POST","/rams/"+r.id+"/approve",{}),"p"):null))):h("p",{class:"mut"},t("none"))),
+    card(t("con"),fld(t("con"),sel("f-con",cons.map((x)=>[x.id,x.name]),S.sel.con,(e)=>{S.sel.con=e.target.value;S.sel.wk=null;refresh()})))];
+  if(c)out.push(card(t("sCo"),
+    c.companyReasons.length?h("ul",{class:"bad"},c.companyReasons.map((x)=>h("li",{},mt(x)))):h("p",{class:"okt"},t("coOk")),
+    fld(t("ins"),date("f-ins",c.insuranceExpiry)),fld(t("risqs"),sel("f-risqs",["valid","invalid","suspended"].map((v)=>[v,t("v_"+v)]),c.risqsStatus)),
+    fld(t("risqs")+" – "+t("expiry"),date("f-rexp2",c.risqsExpiry)),
+    btn(t("save"),()=>act("PATCH","/contractors/"+S.sel.con+"/credentials",{insuranceExpiry:$("f-ins").value,risqsStatus:$("f-risqs").value,risqsExpiry:$("f-rexp2").value}),"p")));
+  if(wk)out.push(card(t("sWk"),fld(t("wk"),sel("f-wk",ws.map((w)=>[w.id,w.name]),wk.id,(e)=>{S.sel.wk=e.target.value;render()})),
+    fld(t("sen"),date("f-sen",wk.cards.sentinel)),fld(t("cscs"),date("f-cscs",wk.cards.cscs)),
+    btn(t("save"),()=>act("PATCH","/workers/"+wk.id+"/credentials",{sentinelExpiry:$("f-sen").value,cscsExpiry:$("f-cscs").value}),"p"),
+    S.role==="safety_officer"?[h("h3",{},t("ind")),fld(t("site"),sel("f-isite",siteOpts(),(first(S.d.sites)||{}).code)),fld(t("expiry"),date("f-iexp",today(180))),
+      btn(t("ind"),()=>act("POST","/workers/"+wk.id+"/inductions",{siteCode:$("f-isite").value,expiry:$("f-iexp").value}))]:null));
+  return out}
+
+function qrSvg(text){const q=qr(text),n=q.size+8;let d="";
+  for(let y=0;y<q.size;y++)for(let x=0;x<q.size;x++)if(q.get(x,y))d+="M"+(x+4)+" "+(y+4)+"h1v1h-1z";
+  const s=document.createElementNS(NS,"svg");s.setAttribute("viewBox","0 0 "+n+" "+n);s.setAttribute("class","qr");s.setAttribute("role","img");s.setAttribute("aria-label",text);
+  const bg=document.createElementNS(NS,"rect");bg.setAttribute("width",n);bg.setAttribute("height",n);bg.setAttribute("fill","#fff");
+  const p=document.createElementNS(NS,"path");p.setAttribute("d",d);p.setAttribute("fill","#000");s.append(bg);s.append(p);return s}
+function vRoll(){const code=S.sel.site,r=S.d.roll,url=location.origin+"/s/"+code;
+  const out=[card(t("n_rollcall"),fld(t("site"),sel("f-site",siteOpts(),code,(e)=>{S.sel.site=e.target.value;refresh()})),
+    h("h3",{},t("present")+(r?": "+r.count:"")),r&&r.count?h("ul",{},r.present.map((p)=>h("li",{},p.name+" – "+p.inAt.slice(11,16)+" UTC"))):h("p",{class:"mut"},t("none")),
+    btn(t("reload"),()=>refresh()))];
+  if(code)out.push(h("section",{class:"card poster"},h("h2",{class:"np"},t("poster")),h("h3",{},nameOf(S.d.sites,"code",code)),qrSvg(url),
+    h("p",{},P.how[0]),h("p",{},P.how[1]),h("p",{class:"mut"},url),h("div",{class:"np"},btn(t("print"),()=>window.print(),"p"))));
+  return out}
+
+function vAudit(){const es=(S.d.audit||[]).slice().reverse();
+  return card(t("n_audit"),h("div",{class:"row"},btn(t("reload"),()=>refresh()),btn(t("verify"),async()=>{S.d.chain=await G("/audit/verify");render()},"p"),
+    S.d.chain?h("strong",{class:S.d.chain.ok?"okt":"badt",role:"status"},S.d.chain.ok?t("cOk"):t("cBad")+" "+S.d.chain.brokenAt):null),
+    h("div",{class:"tw"},h("table",{},h("thead",{},h("tr",{},["#",t("time"),t("action"),t("outcome"),t("reason"),t("ref")].map((x)=>h("th",{scope:"col"},x)))),
+      h("tbody",{},es.map((e)=>h("tr",{},h("td",{},e.seq),h("td",{},e.ts.slice(0,16).replace("T"," ")),h("td",{},e.action),h("td",{},t(e.outcome)),h("td",{},e.reason?mt(e.reason):"–"),h("td",{},e.cid.slice(0,8))))))))}
+const VIEW={none:()=>card(t("n_none")),checkin:vCheckin,company:vCompany,permits:vPermits,safety:vSafety,rollcall:vRoll,audit:vAudit};
+
+function vLogin(){return [card(t("signin"),msgBox(),
+  fld(t("who"),sel("f-user",ACCOUNTS.map(([u,r])=>[u,u+" – "+t("r_"+r)]),ACCOUNTS[0][0])),
+  fld(t("pass"),h("input",{id:"f-pass",type:"password",autocomplete:"current-password"})),
+  h("p",{class:"mut"},t("passHint")+" ("+t("sim")+")"),h("p",{id:"srv",role:"status","aria-live":"polite"},srvText()),btn(t("signin"),login,"p"))]}
+function topBar(){return h("header",{class:"np"},h("div",{},h("h1",{},t("title")),h("span",{class:"mut"},t("built"))),
+  h("div",{class:"row"},S.token?h("span",{class:"mut"},t("r_"+S.role)):null,
+    h("div",{class:"row",role:"group","aria-label":"Language / Iaith"},btn("English",()=>{S.lang="en";render()},"",false),btn("Cymraeg",()=>{S.lang="cy";render()},"",false)),
+    S.token?btn(t("signout"),logout):null))}
+function foot(){return h("footer",{class:"np"},h("p",{},h("strong",{},t("built"))),h("p",{class:"mut"},t("demo")),h("p",{class:"mut"},t("draft")))}
+function body(){if(!S.token)return vLogin();
+  const vs=ROLEVIEWS[S.role];
+  return [h("nav",{class:"tabs np"},vs.map((v)=>h("button",{type:"button",class:v===S.view?"tab on":"tab","aria-current":v===S.view?"page":null,on:{click:()=>{S.msg=null;go(v)}}},t("n_"+v)))),
+    msgBox(),S.busy?h("p",{class:"mut np"},t("loading")):VIEW[S.view||"none"]()]}
+function crash(e){try{const d=document.createElement("div");d.className="boot";d.textContent="Something went wrong showing this page. Reload the page. If it keeps happening, tell the test team: "+String((e&&e.message)||e).slice(0,160)+" / Aeth rhywbeth o’i le wrth ddangos y dudalen. Ail-lwythwch y dudalen.";$("app").replaceChildren(d)}catch{}}
+function render(){try{document.documentElement.lang=S.lang;document.title=t("title");
+  $("app").replaceChildren(topBar(),h("main",{},body()),foot());setStatus()}catch(e){crash(e)}}
+if(window.addEventListener)window.addEventListener("error",(ev)=>{if(!ev.filename||ev.filename===location.href)crash(ev.error||ev.message)});
+(async()=>{const m=location.pathname.match(/^\/s\/([A-Z0-9-]{3,20})$/);if(m){S.site=m[1];S.sel.site=m[1]}
+  render();warm()})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+{
+  "_comment": "Where every file in this repository goes. Machine-checked by scripts/verify-placement.mjs: every file must match exactly one rule (first match wins) and every rule must match a file.",
+  "rules": [
+    {
+      "match": "web/index.html",
+      "github": "web/index.html (repo root /web)",
+      "netlify": "PUBLISHED: the site served from publish dir web",
+      "render": "not used",
+      "neon": "not used",
+      "why": "Static UI simulation. Synthetic data only"
+    },
+    {
+      "match": "netlify.toml",
+      "github": "repo root",
+      "netlify": "READ AUTOMATICALLY from repo root: build command, publish dir, security headers",
+      "render": "not used",
+      "neon": "not used",
+      "why": "Netlify configuration"
+    },
+    {
+      "match": "render.yaml",
+      "github": "repo root",
+      "netlify": "not used",
+      "render": "READ AS BLUEPRINT from repo root (New > Blueprint)",
+      "neon": "not used",
+      "why": "Render synthetic-staging service definition"
+    },
+    {
+      "match": "apps/portal-api/package.json",
+      "github": "apps/portal-api/",
+      "netlify": "not used",
+      "render": "RUN: build step (npm run build) and Node engine",
+      "neon": "not used",
+      "why": "API manifest (no third-party dependencies)"
+    },
+    {
+      "match": "apps/portal-api/src/",
+      "github": "apps/portal-api/src/",
+      "netlify": "not used",
+      "render": "RUN: node src/server.js",
+      "neon": "not used (store.js is in-memory; a Neon-backed store is not built yet)",
+      "why": "API source code and locale files"
+    },
+    {
+      "match": "apps/portal-api/tests/",
+      "github": "apps/portal-api/tests/",
+      "netlify": "not used",
+      "render": "present in checkout, never executed by Render",
+      "neon": "not used",
+      "why": "API tests, executed by CI (npm test)"
+    },
+    {
+      "match": "config/tenant.config.json",
+      "github": "config/",
+      "netlify": "not used",
+      "render": "READ AT RUNTIME from the repo checkout (../../config relative to apps/portal-api)",
+      "neon": "not used",
+      "why": "All TfW-specific values live here"
+    },
+    {
+      "match": "config/",
+      "github": "config/",
+      "netlify": "not used",
+      "render": "not used",
+      "neon": "not used",
+      "why": "Replacement registry, example values file, this manifest. Handover tooling"
+    },
+    {
+      "match": "scripts/sync-csp.mjs",
+      "github": "scripts/ (must stay at this path)",
+      "netlify": "RUN in the Netlify build command",
+      "render": "not used",
+      "neon": "not used",
+      "why": "Keeps CSP hashes in step with the page"
+    },
+    {
+      "match": "scripts/preview-safety-check.mjs",
+      "github": "scripts/ (must stay at this path)",
+      "netlify": "RUN in the Netlify build command",
+      "render": "not used",
+      "neon": "not used",
+      "why": "Fails the preview build if it could leak data or call out"
+    },
+    {
+      "match": "scripts/",
+      "github": "scripts/",
+      "netlify": "not used",
+      "render": "not used",
+      "neon": "not used",
+      "why": "Registry verify/generate/apply and placement check. Run by CI and by engineers"
+    },
+    {
+      "match": "tests/",
+      "github": "tests/",
+      "netlify": "not used",
+      "render": "not used",
+      "neon": "not used",
+      "why": "Tests of the handover tooling, run by CI"
+    },
+    {
+      "match": ".github/",
+      "github": ".github/ (must be at repo root)",
+      "netlify": "not used",
+      "render": "not used",
+      "neon": "not used",
+      "why": "CI workflow, CODEOWNERS, Dependabot"
+    },
+    {
+      "match": "docs/",
+      "github": "docs/ (same sub-folders)",
+      "netlify": "not used",
+      "render": "not used",
+      "neon": "not used",
+      "why": "Evidence, architecture, operations and handover documents. Never deployed"
+    },
+    {
+      "match": ".env.example",
+      "github": "repo root (placeholders only)",
+      "netlify": "not used",
+      "render": "not used",
+      "neon": "not used",
+      "why": "Template; real .env is never committed"
+    },
+    {
+      "match": ".gitignore",
+      "github": "repo root",
+      "netlify": "not used",
+      "render": "not used",
+      "neon": "not used",
+      "why": "Keeps secrets and build output out of Git"
+    },
+    {
+      "match": "README.md",
+      "github": "repo root",
+      "netlify": "not used",
+      "render": "not used",
+      "neon": "not used",
+      "why": "Orientation"
+    },
+    {
+      "match": "package.json",
+      "github": "repo root",
+      "netlify": "not used",
+      "render": "not used",
+      "neon": "not used",
+      "why": "Root convenience commands (npm run verify / npm test). No third-party dependencies"
+    },
+    {
+      "match": ".nvmrc",
+      "github": "repo root",
+      "netlify": "READ AUTOMATICALLY for the Node version",
+      "render": "READ AUTOMATICALLY for the Node version",
+      "neon": "not used",
+      "why": "Pins Node 20 for Netlify, Render and developers"
+    },
+    {
+      "match": ".gitattributes",
+      "github": "repo root",
+      "netlify": "not used",
+      "render": "not used",
+      "neon": "not used",
+      "why": "Forces LF line endings so security hashes stay correct on Windows"
+    },
+    {
+      "match": "CHANGELOG.md",
+      "github": "repo root",
+      "netlify": "not used",
+      "render": "not used",
+      "neon": "not used",
+      "why": "Release notes"
+    },
+    {
+      "match": "SECURITY.md",
+      "github": "repo root",
+      "netlify": "not used",
+      "render": "not used",
+      "neon": "not used",
+      "why": "Vulnerability reporting policy (GitHub shows it on the Security tab)"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "tfw-contractors-portal",
+  "version": "0.2.3",
+  "private": true,
+  "description": "Contractor safety and compliance portal: working build with synthetic data.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "verify": "node scripts/verify-placement.mjs && node scripts/verify-placeholders.mjs && node scripts/sync-csp.mjs --check && node scripts/preview-safety-check.mjs",
+    "test": "npm run verify && npm --prefix apps/portal-api test && node --test tests/ui-smoke.test.mjs tests/replacement.test.mjs",
+    "start": "node apps/portal-api/src/server.js"
+  }
+}

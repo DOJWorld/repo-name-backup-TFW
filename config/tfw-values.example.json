@@ -1,0 +1,5 @@
+{
+  "_comment": "Example only: these are NOT real TfW values. Use IDs from docs/handover/TFW_REPLACEMENT_REGISTER.md.",
+  "TFW-06": "https://portal.sample-tfw.test",
+  "TFW-03": "helpdesk@sample-tfw.test"
+}

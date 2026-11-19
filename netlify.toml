@@ -1,0 +1,26 @@
+# Netlify = static UI preview ONLY. Synthetic data. No functions, forms, identity or analytics.
+[build]
+  publish = "web"
+  command = "node scripts/preview-safety-check.mjs && node scripts/sync-csp.mjs --check"
+
+[build.environment]
+  NODE_VERSION = "20"
+  PREVIEW_DATA_CLASS = "synthetic"
+
+[[redirects]]
+  from = "/s/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'none'; script-src 'sha256-Cy0Y8mtid/OJkxZUeNbWQI2OzdcU8YN6kqWQwwdizDg='; style-src 'sha256-7XWY8pnKBpuPSdbCjsOBup/ZTMILxzbTukw/JZoyNAM='; img-src data:; connect-src https://tfw-portal-api-b1ks.onrender.com; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+    Cross-Origin-Opener-Policy = "same-origin"
+    Cross-Origin-Resource-Policy = "same-origin"
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "public, max-age=0, must-revalidate"
